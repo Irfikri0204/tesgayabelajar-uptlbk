@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="assets/css/output.css">
   </head>
   <body>
+    <div id="loading" class="fixed inset-0 bg-white flex justify-center items-center z-50">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-purple-500"></div>
+      </div>
     <div class="w-full bg-gray-300 h-screen flex justify-center items-center">
         <div
         class="card flex flex-col items-center text-center bg-white p-4 max-w-[90%] md:max-w-[40%] rounded-md shadow-lg mx-auto gap-y-3"
@@ -24,23 +27,32 @@
 </body>
 <script>
   window.onload = function () {
-    let hasil = localStorage.getItem("hasil") || 0; // Ambil skor dari Local Storage (default 0 jika tidak ada)
-    if (hasil !=0 && hasil==="Visual") {
-      document.getElementById("kategori").innerText = "Gaya Belajar Anda";
-      document.getElementById("skor").innerText = hasil;
-      document.getElementById("desc").innerText =
-        "Orang dengan gaya belajar ini biasanya senang dan lebih mudah belajar dengan sesuatu yang bergambar atau warna-warna.";
-    } else if (hasil !=0 && hasil==="Auditory") {
-      document.getElementById("kategori").innerText = "Gaya Belajar Anda";
-      document.getElementById("skor").innerText = hasil;
-      document.getElementById("desc").innerText =
-        "Orang dengan gaya belajar ini benar-benar menempatkan pendengaran sebagai alat utama untuk menyerap informasi atau pengetahuan.";
-    } else if (hasil !=0 && hasil==="Kinesthetic") {
-      document.getElementById("kategori").innerText = "Gaya Belajar Anda";
-      document.getElementById("skor").innerText = hasil;
-      document.getElementById("desc").innerText =
-        "Orang dengan gaya belajar ini menggunakan tangan sebagai alat penerima informasi agar bisa terus mengingatnya & dia merasa bisa belajar lebih baik kalau disertai kegiatan fisik.";
-    }
+    // Tampilkan loading
+    const loading = document.getElementById("loading");
+
+    // Delay sedikit untuk mensimulasikan proses "memuat"
+    setTimeout(() => {
+      let hasil = localStorage.getItem("hasil") || 0;
+
+      if (hasil != 0) {
+        document.getElementById("kategori").innerText = "Gaya Belajar Anda";
+        document.getElementById("skor").innerText = hasil;
+
+        if (hasil === "Visual") {
+          document.getElementById("desc").innerText =
+            "Orang dengan gaya belajar ini biasanya senang dan lebih mudah belajar dengan sesuatu yang bergambar atau warna-warna.";
+        } else if (hasil === "Auditory") {
+          document.getElementById("desc").innerText =
+            "Orang dengan gaya belajar ini benar-benar menempatkan pendengaran sebagai alat utama untuk menyerap informasi atau pengetahuan.";
+        } else if (hasil === "Kinesthetic") {
+          document.getElementById("desc").innerText =
+            "Orang dengan gaya belajar ini menggunakan tangan sebagai alat penerima informasi agar bisa terus mengingatnya & dia merasa bisa belajar lebih baik kalau disertai kegiatan fisik.";
+        }
+      }
+
+      // Sembunyikan loading
+      loading.style.display = "none";
+    }, 800); // 800ms bisa disesuaikan, atau dihilangkan jika tak perlu delay
   };
 </script>
   </body>
