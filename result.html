@@ -27,7 +27,7 @@
     let hasil = localStorage.getItem("hasil") || 0; // Ambil skor dari Local Storage (default 0 jika tidak ada)
     if (hasil !=0 && hasil==="Visual") {
       document.getElementById("kategori").innerText = "Gaya Belajar Anda";
-      document.getElementById("skor").innerText = skor;
+      document.getElementById("skor").innerText = hasil;
       document.getElementById("desc").innerText =
         "Orang dengan gaya belajar ini biasanya senang dan lebih mudah belajar dengan sesuatu yang bergambar atau warna-warna.";
     } else if (hasil !=0 && hasil==="Auditory") {
