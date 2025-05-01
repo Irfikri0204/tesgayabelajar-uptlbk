@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hasil Tes Gaya Belajar</title>
+    <link rel="stylesheet" href="assets/css/output.css">
+  </head>
+  <body>
+    <div class="w-full bg-gray-300 h-screen flex justify-center items-center">
+        <div
+        class="card flex flex-col items-center text-center bg-white p-4 max-w-[90%] md:max-w-[40%] rounded-md shadow-lg mx-auto gap-y-3"
+      >
+        <h1 id="kategori" class="text-xl font-semibold"></h1>
+        <h2 id="skor" class="text-5xl font-bold"></h2>
+        <p id="desc" class="text-base"></p>
+        <a
+          href="https://www.instagram.com/uptlbk_unm/"
+          class="w-full bg-[#8049A4] hover:bg-[#6a3191] text-white py-2 px-8 rounded-md shadow-md"
+          >Follow Instagram UPT LBK UNM</a
+        >
+      </div>
+    </div>
+</body>
+<script>
+  window.onload = function () {
+    let hasil = localStorage.getItem("hasil") || 0; // Ambil skor dari Local Storage (default 0 jika tidak ada)
+    if (hasil !=0 && hasil==="Visual") {
+      document.getElementById("kategori").innerText = "Gaya Belajar Anda";
+      document.getElementById("skor").innerText = skor;
+      document.getElementById("desc").innerText =
+        "Orang dengan gaya belajar ini biasanya senang dan lebih mudah belajar dengan sesuatu yang bergambar atau warna-warna.";
+    } else if (hasil !=0 && hasil==="Auditory") {
+      document.getElementById("kategori").innerText = "Gaya Belajar Anda";
+      document.getElementById("skor").innerText = hasil;
+      document.getElementById("desc").innerText =
+        "Orang dengan gaya belajar ini benar-benar menempatkan pendengaran sebagai alat utama untuk menyerap informasi atau pengetahuan.";
+    } else if (hasil !=0 && hasil==="Kinesthetic") {
+      document.getElementById("kategori").innerText = "Gaya Belajar Anda";
+      document.getElementById("skor").innerText = hasil;
+      document.getElementById("desc").innerText =
+        "Orang dengan gaya belajar ini menggunakan tangan sebagai alat penerima informasi agar bisa terus mengingatnya & dia merasa bisa belajar lebih baik kalau disertai kegiatan fisik.";
+    }
+  };
+</script>
+  </body>
+</html>
