@@ -746,71 +746,74 @@
         showStep(currentStep);
       });
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        if (validateStep(currentStep)) {
-          let a = 0;
-          let b = 0;
-          let c = 0;
-          let hasil = "";
-          for (let i = 1; i <= 10; i++) {
-            if (
-              document.querySelector(`input[name="data[q${i}]"]:checked`)
-                .value == "A"
-            ) {
-              a++;
-            } else if (
-              document.querySelector(`input[name="data[q${i}]"]:checked`)
-                .value == "B"
-            ) {
-              b++;
-            } else {
-              c++;
-            }
-          }
-          if (a > b && a > c) {
-            hasil = "Visual";
-          } else if (b > a && b > c) {
-            hasil = "Auditory";
-          } else {
-            hasil = "Kinesthetic";
-          }
-          console.log("Total Hasil:", hasil);
-          localStorage.setItem("hasil", hasil);
-          console.log("Hasil di Local Storage:", localStorage.getItem("hasil"));
+     form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-          // Input Data
-          const formData = new FormData(form);
+  // Cegah multiple submit
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Loading..."; // Tambahkan indikator loading
 
-          try {
-            const response = await fetch(
-              "https://sheetdb.io/api/v1/6y44g0vk0codx",
-              {
-                method: "POST",
-                body: formData,
-              }
-            );
-            if (!response.ok) {
-              throw new Error("Gagal mengirim data ke server");
-            }
-            console.log("Data berhasil dikirim!");
-            Swal.fire({
-              title: "Data Berhasil Disubmit!",
-              icon: "success",
-            }).then(() => {
-              window.location.href = "result.html"; // Redirect setelah alert ditutup
-            });
-          } catch (error) {
-            Swal.fire({
-              title: "Terjadi Kesalahan!",
-              text: error.message,
-              icon: "error",
-            });
-          }
-        }
+  if (validateStep(currentStep)) {
+    let a = 0;
+    let b = 0;
+    let c = 0;
+    let hasil = "";
+
+    for (let i = 1; i <= 10; i++) {
+      const selected = document.querySelector(`input[name="data[q${i}]"]:checked`);
+      if (selected?.value === "A") {
+        a++;
+      } else if (selected?.value === "B") {
+        b++;
+      } else {
+        c++;
+      }
+    }
+
+    if (a > b && a > c) {
+      hasil = "Visual";
+    } else if (b > a && b > c) {
+      hasil = "Auditory";
+    } else {
+      hasil = "Kinesthetic";
+    }
+
+    console.log("Total Hasil:", hasil);
+    localStorage.setItem("hasil", hasil);
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://sheetdb.io/api/v1/6y44g0vk0codx", {
+        method: "POST",
+        body: formData,
       });
 
-      showStep(currentStep);
+      if (!response.ok) {
+        throw new Error("Gagal mengirim data ke server");
+      }
+
+      console.log("Data berhasil dikirim!");
+      Swal.fire({
+        title: "Data Berhasil Disubmit!",
+        icon: "success",
+      }).then(() => {
+        window.location.href = "result.html";
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Terjadi Kesalahan!",
+        text: error.message,
+        icon: "error",
+      });
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Submit";
+    }
+  } else {
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit";
+  }
+});
     </script>
   </body>
 </html>
